@@ -21,7 +21,10 @@ import { useTasks } from '@/context/TaskContext';
 import ThemeToggle from './ThemeToggle';
 
 const Layout: React.FC = () => {
-  const { user, messages, markMessagesAsRead } = useTasks();
+  const taskContext = useTasks();
+  const user = taskContext?.user;
+  const messages = taskContext?.messages || [];
+  const markMessagesAsRead = taskContext?.markMessagesAsRead || (() => {});
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const saved = localStorage.getItem('sidebar-collapsed');
     return saved ? JSON.parse(saved) : false;
